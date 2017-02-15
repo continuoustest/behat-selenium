@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  application:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app
+      - ./scripts/nginx.conf:/etc/nginx/nginx.conf
+
+  selenium:
+    image: selenium/standalone-chrome:3.0.1
+    hostname: selenium
+    container_name: selenium
+    ports:
+      - 4444:4444
+    environment:
+      - JAVA_ENV="-Xms1g -Xmx4g"
+    shm_size: 256M
+
+  behat-homepage:
+    image: php:7.0-cli
+    volumes:
+      - .:/app
+    command: /app/vendor/bin/behat -c /app/behat.yml --colors
