@@ -19,4 +19,12 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     public function __construct()
     {
     }
+
+    /**
+     * @Then I wait during :arg1 ms
+     */
+    public function iWaitDuringMs($arg1)
+    {
+        $this->getSession()->wait($arg1);
+    }
 }
