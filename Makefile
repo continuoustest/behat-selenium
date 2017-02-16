@@ -1,17 +1,21 @@
 up: docker-compose.yml
-	docker-compose up -d application selenium
+	docker-compose up -d --build nginx apache24 selenium
 .PHONY: up
 
 start: up
 	./scripts/selenium.sh
 .PHONY: start
 
-behat: .behat-homepage.log
+behat: .behat-homepage-nginx.log .behat-homepage-apache24.log
 .PHONY: behat
 
-.behat-homepage.log: features/*.feature
-	docker-compose up behat-homepage > .behat-homepage.log
-	cat .behat-homepage.log
+.behat-homepage-nginx.log: features/*.feature
+	docker-compose up behat-homepage-nginx > .behat-homepage-nginx.log
+	cat .behat-homepage-nginx.log
+
+.behat-homepage-apache24.log: features/*.feature
+	docker-compose up behat-homepage-apache24 > .behat-homepage-apache24.log
+	cat .behat-homepage-apache24.log
 
 clean:
 	rm .*.log

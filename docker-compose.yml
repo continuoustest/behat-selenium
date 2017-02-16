@@ -1,13 +1,27 @@
 version: "2"
 
 services:
-  application:
+  phpfpm:
+    image: php:7.0-fpm
+    volumes:
+      - .:/home/cphp/workspace
+
+  nginx:
     image: nginx
     ports:
       - "8080:80"
     volumes:
       - .:/app
       - ./scripts/nginx.conf:/etc/nginx/nginx.conf
+
+  apache24:
+    build:
+      context: scripts/
+      dockerfile: apache.Dockerfile
+    volumes:
+      - .:/home/cphp/workspace
+    ports:
+      - "8081:80"
 
   selenium:
     image: selenium/standalone-chrome:3.0.1
@@ -19,8 +33,14 @@ services:
       - JAVA_ENV="-Xms1g -Xmx4g"
     shm_size: 256M
 
-  behat-homepage:
+  behat-homepage-nginx:
     image: php:7.0-cli
     volumes:
       - .:/app
-    command: /app/vendor/bin/behat -c /app/behat.yml --colors
+    command: /app/vendor/bin/behat -c /app/behat-nginx.yml --colors
+
+  behat-homepage-apache24:
+    image: php:7.0-cli
+    volumes:
+      - .:/app
+    command: /app/vendor/bin/behat -c /app/behat-apache24.yml --colors
