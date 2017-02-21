@@ -1,0 +1,9 @@
+# behat.yml
+default:
+    extensions:
+        Behat\MinkExtension:
+            base_url: '$BEHAT_BASE_URL'
+            browser_name: chrome
+            javascript_session: selenium2
+            selenium2:
+                wd_host: '$BEHAT_WD_HOST'
