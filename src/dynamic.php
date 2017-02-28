@@ -2,8 +2,10 @@
 
 echo "continuousphp";
 
-echo "<br />";
+echo "\n\n --------------- \n\n";
 
-echo "phpversion: ", phpversion(), "<br />";
-echo "environments: ", print_r($_ENV, true), "<br />";
-echo "server: ", print_r($_SERVER, true), "<br />";
+echo "clear_env: ", ini_get('clear_env'), "\n";
+
+echo "phpversion: ", phpversion(), "\n";
+echo "environments: ", print_r($_ENV, true), "\n";
+echo "server: ", print_r($_SERVER, true), "\n";
