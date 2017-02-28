@@ -1,5 +1,5 @@
 up: docker-compose.yml
-	docker-compose up -d --build nginx apache24 selenium
+	docker-compose up -d --build phpfpm selenium nginx apache24
 .PHONY: up
 
 start: up
@@ -23,5 +23,5 @@ clean:
 
 purge: clean
 	docker-compose stop
-	docker-compose rm -f
+	docker-compose rm -f --all
 .PHONY: purge
