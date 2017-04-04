@@ -1,2 +1,2 @@
 Header set FROMHTAC "its work!"
-#SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
